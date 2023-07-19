@@ -1,10 +1,8 @@
 import * as bitcoin from 'bitcoinjs-lib';
 import * as chai from 'chai';
 import { IOrdItem, utxo } from '../src';
-import {
-  ORDINALS_API_URL,
-} from '../src/constant';
-import { FullnodeRPC } from '../src/vendors/fullnoderpc';
+import { ORDINALS_API_URL } from '../src/constant';
+import { getRawTxHex } from '../src/vendors/mempool';
 
 const expect = chai.expect;
 
@@ -38,7 +36,7 @@ const getBuyerFixtureTx = async (): Promise<bitcoin.Transaction> => {
     return buyerFixtureTx;
   }
   buyerFixtureTx = bitcoin.Transaction.fromHex(
-    await FullnodeRPC.getrawtransaction(
+    await getRawTxHex(
       '9da61adf626de2654f5def2b4dde8fbec72a3f3a4bab769c0541eeacbb0c20c5',
     ),
   );

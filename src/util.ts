@@ -1,7 +1,7 @@
 import { AddressTxsUtxo } from '@mempool/mempool.js/lib/interfaces/bitcoin/addresses';
 import * as bitcoin from 'bitcoinjs-lib';
 import { utxo } from './interfaces';
-import { FullnodeRPC } from './vendors/fullnoderpc';
+import { getRawTxHex } from './vendors/mempool';
 
 export const toXOnly = (pubKey: Buffer) =>
   pubKey.length === 32 ? pubKey : pubKey.subarray(1, 33);
@@ -23,12 +23,16 @@ export async function mapUtxos(
       vout: utxoFromMempool.vout,
       value: utxoFromMempool.value,
       status: utxoFromMempool.status,
-      tx: bitcoin.Transaction.fromHex(
-        await FullnodeRPC.getrawtransaction(utxoFromMempool.txid),
-      ),
+      tx: bitcoin.Transaction.fromHex(await getRawTxHex(utxoFromMempool.txid)),
     });
   }
   return ret;
+}
+export function isTaprootAddress(address: string): boolean {
+  if (address.startsWith('tb1p') || address.startsWith('bc1p')) {
+    return true;
+  }
+  return false;
 }
 
 export function isP2SHAddress(
