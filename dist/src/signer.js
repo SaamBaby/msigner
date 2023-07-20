@@ -325,12 +325,6 @@ var BuyerSigner;
                 };
                 p2shInputRedeemScriptUn.redeemScript = p2sh.redeem?.output;
             }
-            if ((0, util_1.isTaprootAddress)(listing.buyer.buyerAddress)) {
-                input.witnessUtxo = tx.outs[utxo.vout];
-                if (listing.buyer.buyerPublicKey) {
-                    input.tapInternalKey = Buffer.from(listing.buyer.buyerPublicKey, 'hex').subarray(1, 33);
-                }
-            }
             psbt.addInput({
                 ...input,
                 ...p2shInputWitnessUTXOUn,
