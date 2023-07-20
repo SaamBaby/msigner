@@ -342,7 +342,7 @@ export namespace BuyerSigner {
 
     if (
       !listing.buyer.buyerDummyUTXOs ||
-      listing.buyer.buyerDummyUTXOs.length < 3
+      listing.buyer.buyerDummyUTXOs.length !== 2
     ) {
       throw new InvalidArgumentError('Buyer address has not enough utxos');
     }
