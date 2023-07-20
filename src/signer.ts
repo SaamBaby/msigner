@@ -437,15 +437,7 @@ export namespace BuyerSigner {
         } as WitnessUtxo;
         p2shInputRedeemScriptUn.redeemScript = p2sh.redeem?.output;
       }
-      if (isTaprootAddress(listing.buyer.buyerAddress)) {
-        input.witnessUtxo = tx.outs[utxo.vout];
-        if (listing.buyer.buyerPublicKey) {
-          input.tapInternalKey = Buffer.from(
-            listing.buyer.buyerPublicKey!,
-            'hex',
-          ).subarray(1, 33);
-        }
-      }
+
       psbt.addInput({
         ...input,
         ...p2shInputWitnessUTXOUn,
