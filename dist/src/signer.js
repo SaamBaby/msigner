@@ -247,7 +247,7 @@ var BuyerSigner;
             throw new interfaces_1.InvalidArgumentError('Buyer address is not set');
         }
         if (!listing.buyer.buyerDummyUTXOs ||
-            listing.buyer.buyerDummyUTXOs.length < 3) {
+            listing.buyer.buyerDummyUTXOs.length !== 2) {
             throw new interfaces_1.InvalidArgumentError('Buyer address has not enough utxos');
         }
         if (!listing.buyer.buyerPaymentUTXOs ||
